@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="style1.css" />
+</head>
+<!-- 다크모드 -->
+<html>
+
+<body>
+  <!-- 모달창 -->
+  <div class="black-bg">
+    <div class="white-bg">
+      <h4>로그인하는곳</h4>
+      <form action="success.html">
+        <div class="my-3">
+          <input type="text" class="form-control" id="uid" />
+        </div>
+        <div class="my-3">
+          <input type="password" class="form-control" id="pwd" />
+        </div>
+        <button type="submit" class="btn btn-primary" id="btn_submit">전송</button>
+        <button type="button" class="btn btn-danger" id="close">닫기</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 네브바 -->
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <span class="navbar-brand">Navbar</span>
+      <span class="badge bg-dark">다크모드💱</span>
+    </div>
+  </nav>
+
+  <!--프래그래스바 -->
+  <div class="progress-container">
+    <div class="progress-bar" id="indicator"></div>
+  </div>
+
+  <!-- 로그인창 -->
+  <div class="main-bg">
+    <h4>Shirts on Sale</h4>
+    <button id="login" class="btn btn-danger">로그인하세요</button>
+  </div>
+  <div class="alert alert-danger"><span id="num">5</span>초 이내 구매시 사은품 증정!</div>
+
+
+
+  <div style="height: 3000px">
+    <div style="width: 600px">
+      <div class='clock-box'>
+        현재 시간 : <span id="clock">00:00:00</span>
+      </div>
+      <div class='weather' id="weather">
+        현재 위치 :
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+
+    <!-- 슬라이더 버튼사진 -->
+    <div style="overflow: hidden">
+      <!-- 옆으로 넘치는 애들숨겨줘  -->
+      <div class="slide-container">
+        <div class="slide-box">
+          <img src="phone1.jpg" />
+        </div>
+        <div class="slide-box">
+          <img src="phone2.jpg" />
+        </div>
+        <div class="slide-box">
+          <img src="phone3.jpg" />
+        </div>
+      </div>
+    </div>
+    <button class="slide-1">1</button>
+    <button class="slide-2">2</button>
+    <button class="slide-3">3</button>
+    <button class="next">다음</button>
+    <h3 class="vertical-text">프로그래스바 확인</h3>
+  </div>
+
+  <!--★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->
+  <script src="clock.js"></script>
+  <script src="weather.js"></script>
+  <!-- 모달창 검은화면 누르면 종료 -->
+  <script>
+    $(".black-bg").on("click", function (e) {
+      if ($(e.target).is($(".black-bg"))) {
+        // 제이쿼리 == 제이쿼리 불가능!! 그래서 e.target과 black-bg맞춰줘야함
+        $(".black-bg").removeClass("show-modal");
+      }
+    });
+  </script>
+
+  <!--  인터넷 스크롤 진행도 (프로그래스바) -->
+  <script>
+    window.onscroll = function () {
+      프로그래스바나와라();
+    };
+    function 프로그래스바나와라() {
+      var 스크롤양 = document.body.scrollTop || document.documentElement.scrollTop;
+      var 실제높이 = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (스크롤양 / 실제높이) * 100;
+      document.getElementById("indicator").style.width = scrolled + "%";
+    }
+  </script>
+
+  <!-- <script>
+        $(".lorem").on("scroll", function () {
+          var 스크롤양 = document.querySelector(".lorem").scrollTop;
+          var 실제높이 = document.querySelector(".lorem").scrollHeight;
+          var 높이 = document.querySelector(".lorem").clientHeight;
+          if (스크롤양 + 높이 > 실제높이 - 10) {
+            alert("다읽음");
+          }
+        });
+      </script> -->
+
+  <!-- 네브바 크기 축소 확대 -->
+  <script>
+    //  = window.addEventListener("scroll", function () {
+    $(window).on("scroll", function () {
+      // 현재 스크롤바 위치 출력
+      if (window.scrollY > 100) {
+        // =  $(window).scrollTop()
+        $(".navbar-brand").css("font-size", "20px");
+      } else {
+        $(".navbar-brand").css("font-size", "30px");
+      }
+    });
+  </script>
+
+  <!-- 다음버튼  -->
+  <script>
+    var 지금사진 = 1;
+    $(".next").on("click", function () {
+      $(".slide-container").css("transform", "translateX(-" + 지금사진 + "00vw)");
+      지금사진 += 1;
+    });
+  </script>
+  <script>
+    $(".slide-1").on("click", function () {
+      $(".slide-container").css("transform", "translateX(0vw)");
+    });
+
+    $(".slide-2").on("click", function () {
+      $(".slide-container").css("transform", "translateX(-100vw)");
+    });
+
+    $(".slide-3").on("click", function () {
+      $(".slide-container").css("transform", "translateX(-200vw)");
+    });
+  </script>
+
+  <!-- 5초 경고창 알림창 -->
+  <script>
+    let a = 5;
+    setInterval(function () {
+      a -= 1;
+      if (a > 0) {
+        $("#num").html(a);
+      } else if (a == 0) {
+        $(".alert").fadeOut();
+      }
+    }, 1000);
+  </script>
+
+  <!-- 다크모드 -->
+  <script>
+    var count = 0;
+    $(".badge").on("click", function () {
+      count += 1;
+      if (count % 2 == 1) {
+        $("body").addClass("dark-mode");
+      } else {
+        $("body").removeClass("dark-mode");
+        // document.body.classList.remove("dark-mode");
+      }
+    });
+  </script>
+
+  <!-- 로그인 공백 경고창 -->
+  <script>
+    $("form").on("submit", function (e) {
+      if ($("#uid").val() == "" || $("#pwd").val() == "") {
+        alert("빈칸 적어라잉");
+        e.preventDefault();
+      }
+    });
+  </script>
+
+  <!-- fadein,out안쓰고 에니메이션 만들기 -->
+  <script>
+    $("#login").on("click", function () {
+      $(".black-bg").addClass("show-modal");
+    });
+    $("#close").on("click", function () {
+      $(".black-bg").removeClass("show-modal");
+    });
+        //     $("#login_btn").on("click", function () {
+        //       $(".black-bg").fadeIn();
+        //     });
+        //     $("#close").on("click", function () {
+        //       $(".black-bg").fadeOut();
+        //     });
+  </script>
+
+
+  <!-- 버튼 알림창 -->
+  <script>
+    function 알림창(구멍1, 구멍2, 구멍3, 구멍4) {
+      document.getElementById(구멍1).style.display = 구멍2;
+      document.getElementById(구멍3).innerHTML = 구멍4;
+    }
+  </script>
+</body>
+
+</html>
+
+</html>
